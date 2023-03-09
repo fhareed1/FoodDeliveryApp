@@ -4,37 +4,34 @@ import MealItem from './MealItem/MealItem';
 import Card from '../UI/Card';
 
 import classes from './AvailableMeals.module.css';
-
-const DUMMY_MEALS = [
-  {
-    id: 'm1',
-    name: 'Sushi',
-    description: 'Finest fish and veggies',
-    price: 22.99,
-  },
-  {
-    id: 'm2',
-    name: 'Schnitzel',
-    description: 'A german specialty!',
-    price: 16.5,
-  },
-  {
-    id: 'm3',
-    name: 'Barbecue Burger',
-    description: 'American, raw, meaty',
-    price: 12.99,
-  },
-  {
-    id: 'm4',
-    name: 'Green Bowl',
-    description: 'Healthy...and green...',
-    price: 18.99,
-  },
-];
+import useHttps from '../../hooks/use-httpsOrder';
 
 const AvailableMeals = () => {
+  const {
+    meals: mealAvailable,
+    error: httpError,
+    loading
+  } = useHttps();
+
+  if (loading) {
+    return (
+      <section>
+        <p className={classes.errormsg}>loading..</p>
+      </section>
+    );
+  }
+
+
+  if (httpError) {
+    return (
+      <section>
+        <p className={classes.errormsg}>{httpError}</p>
+      </section>
+    );
+  }
+
   // we mapped it to THe meal item component
-  const mealsList = DUMMY_MEALS.map((meal) => (
+  const mealsList = mealAvailable.map((meal) => (
     <MealItem
       id={meal.id}
       key={meal.id}
