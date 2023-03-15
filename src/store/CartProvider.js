@@ -35,6 +35,7 @@ const cartReducer = (state, action) => {
       updatedItems = [...state.items];
       updatedItems[existingCartItemIndex] = updatedItem;
     } else {
+      // concat is used to merge to arrays together by producing a new array
       updatedItems = state.items.concat(action.item);
     }
 
@@ -77,7 +78,7 @@ const cartReducer = (state, action) => {
   return defaultCartState;
 };
 
-// The component function
+// The component function !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 const CartProvider = (props) => {
   // the decleration of the useReducer collecting two consts
   const [cartState, dispatchCartAction] = useReducer(
